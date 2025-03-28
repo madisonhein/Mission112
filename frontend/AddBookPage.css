@@ -1,0 +1,28 @@
+    /* Basic styling for the tooltip */
+    .tooltip-button {
+    position: relative;
+    padding: 10px 20px;
+    }
+
+    .tooltip-text {
+    visibility: hidden;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Position above the button */
+    left: 50%;
+    margin-left: -60px;
+    width: 120px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    }
+
+    /* Show the tooltip when hovering over the button */
+    .tooltip-button:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+    }

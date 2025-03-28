@@ -1,18 +1,25 @@
 import { useState, useEffect } from "react";
-import { Book } from "./types/Book"; // Ensure you have a Book type
+import { Book } from "../types/Book"; // Ensure you have a Book type
+import { useNavigate } from "react-router-dom";
 
-function BookList() {
+function BookList({selectedCategories}: {selectedCategories: string[]}) {
     const [books, setBooks] = useState<Book[]>([]);
     const [pageSize, setPageSize] = useState<number>(5);
     const [pageNum, setPageNum] = useState<number>(1);
     const [totalItems, setTotalItems] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(0);
     const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc"); // Sorting order
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchBooks = async () => {
+
+        const categoryParams = selectedCategories
+            .map((cat) => `projectTypes=${encodeURIComponent(cat)}`)
+            .join('&');
+
             try {
-                const response = await fetch(`https://localhost:5000/api/Book/AllBooks?pageHowMany=${pageSize}&pageNum=${pageNum}`);
+                const response = await fetch(`https://localhost:5000/api/Book/AllBooks?pageHowMany=${pageSize}&pageNum=${pageNum}${selectedCategories.length ? `&${categoryParams}` : ''}`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
@@ -26,7 +33,7 @@ function BookList() {
         };
 
         fetchBooks();
-    }, [pageSize, pageNum]);
+    }, [pageSize, pageNum, totalItems, selectedCategories]);
 
     // Function to handle sorting
     const handleSort = () => {
@@ -44,7 +51,6 @@ function BookList() {
 
     return (
         <>
-            <h1>Books List</h1>
 
             {/* Sort Button */}
             <button onClick={handleSort}>
@@ -68,6 +74,9 @@ function BookList() {
                             <li><strong>Page Count: </strong>{book.pageCount}</li>
                             <li><strong>Price: </strong>{book.price}</li>
                         </ul>
+
+                        <button className="btn btn-success" onClick={() => navigate(`/add/${book.title}/${book.bookId}`)}
+                            >Add Book</button>
                     </div>
                 </div>
             ))}
