@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/d8fe8439-7350-4237-81bd-05fff7221692/resourceGroups/appsvc_windows_centralus/providers/Microsoft.Web/sites/Mission12-Madison-Backend",
+    "appService.deploySubpath": "backend/Mission112.API/Mission112.API/publish"
+}
