@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Mission112.API.data;
 
-public class Project
+public class Book
 {
     [Key]
     public int BookId { get; set; }

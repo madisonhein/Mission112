@@ -8,6 +8,6 @@ namespace Mission112.API.data
         {
         }
 
-        public DbSet<Project> Books { get; set; }
+        public DbSet<Book> Books { get; set; }
     }
 }
